@@ -20,13 +20,13 @@ export default function ProductItem({ data, handleAddToCart }) {
         source={{ uri: data.image }}
       />
       <Title>{data.title}</Title>
-      <Price>R$ {data.price}</Price>
+      <Price>{data.priceFormatted}</Price>
       <ButtonAdd>
         <IconBox>
           <Icon name="shopping-basket" size={15} color="#FFF" />
           <IconText>3</IconText>
         </IconBox>
-        <ButtonText onPress={() => handleAddToCart(data)}>
+        <ButtonText onPress={() => handleAddToCart(data.id)}>
           ADICIONAR
         </ButtonText>
       </ButtonAdd>

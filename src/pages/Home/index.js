@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as CartActions from '../../store/mudules/cart/actions'
 
 import ProductItem from './components/ProductItem'
 import api from '../../services/api'
 
 import { Container, ProductList } from './styles';
+import { format } from '../../utils/formatted'
 
 class Home extends Component {
 
   state = {
-    products: [
-    ]
+    products: []
   }
 
   componentDidMount() {
@@ -21,16 +22,19 @@ class Home extends Component {
   loadingProducts = async () =>{
     const response = await api.get(`/products`)
 
-    this.setState({ products: response.data })
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: format(product.price),
+      amount: 1
+    }))
+
+    this.setState({ products: data })
   }
 
-  handleAddToCart = product => {
-    const { dispatch } = this.props;
+  handleAddToCart = id => {
+    const { addToCartRequest } = this.props;
 
-    dispatch({
-      type: 'ADD_TO_CART',
-      product
-    })
+    addToCartRequest(id)
   }
 
   render() {
@@ -41,11 +45,15 @@ class Home extends Component {
           horizontal
           data={products}
           keyExtractor={product => String(product.id)}
-          renderItem={({ item }) => <ProductItem handleAddToCart={this.handleAddToCart} data={item} />}
+          renderItem={({ item }) =>
+          <ProductItem handleAddToCart={this.handleAddToCart} data={item} />
+        }
         />
       </Container>
     );
   }
 }
 
-export default connect()(Home);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+export default connect(null,mapDispatchToProps)(Home);

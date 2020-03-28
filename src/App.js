@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
 import './config/reactotronConfig'
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
 import React from 'react';
 import { Provider } from 'react-redux'
 import { StatusBar } from 'react-native'

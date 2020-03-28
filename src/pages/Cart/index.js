@@ -29,35 +29,63 @@ import Plus from 'react-native-vector-icons/AntDesign'
 import Minus from 'react-native-vector-icons/AntDesign'
 
 class Cart extends Component {
+
+  incrementAmount(id, amount) {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: '@cart/UPDATE_AMOUNT_SUCCESS',
+      id,
+      amount
+    })
+  }
+
+  decrementAmount(id, amount) {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: '@cart/UPDATE_AMOUNT_SUCCESS',
+      id,
+      amount
+    })
+  }
+
+  removeProduct = (id) => {
+    const { dispatch } = this.props
+
+    dispatch({
+      type: '@cart/REMOVE',
+      id
+    })
+  }
   render() {
     const { products } = this.props;
-    console.tron.log(products)
     return (
       <Container>
         <CartList >
           {products.map(item => (
             <CartBox key={item.id}>
               <ProductItem>
-                <ImageItem source={item.image} />
+                <ImageItem source={{ uri: item.image}} />
                 <TextCenter>
                   <Title>
                     {item.title}
                   </Title>
-                  <Price>R$ {item.price}</Price>
+                  <Price>{item.priceFormatted}</Price>
                   </TextCenter>
-                  <ButtonTrash>
+                  <ButtonTrash onPress={() => this.removeProduct(item.id)}>
                     <Icon name="trash" size={21} color="#7159c1" />
                   </ButtonTrash>
               </ProductItem>
               <Actions>
                 <ActionLeft>
-                  <ButtonActionMinus>
+                  <ButtonActionMinus onPress={() => this.decrementAmount(item.id, item.amount -= 1)}>
                     <Minus name="minus" size={25} color="#7159c1" />
                   </ButtonActionMinus>
                   <AmountText
                     numberOfLines={1}
-                  >5</AmountText>
-                  <ButtonActionPlus>
+                  >{item.amount}</AmountText>
+                  <ButtonActionPlus onPress={() => this.incrementAmount(item.id, item.amount += 1)}>
                     <Plus name="plus" size={25} color="#7159c1" />
                   </ButtonActionPlus>
                 </ActionLeft>
