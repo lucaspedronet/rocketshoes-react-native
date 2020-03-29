@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { navigationRef } from './services/navigation/RootNavigation'
 
 import Home from './pages/Home'
 import Cart from './pages/Cart'
@@ -12,7 +13,7 @@ const Stack = createStackNavigator()
 
 export default function Routes()  {
   return(
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         initialRouteName="Home"
         headerMode="screen"
