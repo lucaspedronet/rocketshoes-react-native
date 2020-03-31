@@ -39,7 +39,8 @@ build/Release
 
 # Dependency directories
 node_modules/
-jspm_packages/
+npm-debug.log
+yarn-error.log
 
 # TypeScript v1 declaration files
 typings/

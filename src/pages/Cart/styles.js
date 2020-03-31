@@ -138,3 +138,22 @@ export const ButtonFinalizaText = styled.Text`
   text-align: center;
   color: #FFF;
 `;
+
+export const ModalBox = styled.Modal`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background: #333;
+`;
+
+export const InfoBox = styled.View``;
+
+export const TitleModal = styled.Text``;
+
+export const ButtonCancel = styled.TouchableHighlight``;
+
+export const ButtonRemove = styled.TouchableHighlight``;
+
+export const ButtonTitleCancel = styled.Text``;
+
+export const ButtonTitleRemove = styled.Text``;

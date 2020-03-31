@@ -25,7 +25,6 @@ class Home extends Component {
     const data = response.data.map(product => ({
       ...product,
       priceFormatted: format(product.price),
-      amount: 1
     }))
 
     this.setState({ products: data })
@@ -39,6 +38,8 @@ class Home extends Component {
 
   render() {
     const { products } = this.state;
+    const { amount } = this.props;
+
     return (
       <Container>
         <ProductList
@@ -46,7 +47,7 @@ class Home extends Component {
           data={products}
           keyExtractor={product => String(product.id)}
           renderItem={({ item }) =>
-          <ProductItem handleAddToCart={this.handleAddToCart} data={item} />
+          <ProductItem handleAddToCart={this.handleAddToCart} data={item} amount={amount}  />
         }
         />
       </Container>
@@ -54,6 +55,14 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+
+    return amount;
+  }, {}),
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
-export default connect(null,mapDispatchToProps)(Home);
+export default connect(mapStateToProps,mapDispatchToProps)(Home);

@@ -11,9 +11,9 @@ import {
   ButtonText,
   IconText
 } from './styles';
+import { connect } from 'react-redux';
 
-export default function ProductItem({ data, handleAddToCart }) {
-
+function ProductItem({ data, handleAddToCart, amount }) {
   return (
     <Container>
       <Avatar
@@ -24,7 +24,7 @@ export default function ProductItem({ data, handleAddToCart }) {
       <ButtonAdd>
         <IconBox>
           <Icon name="shopping-basket" size={15} color="#FFF" />
-          <IconText>3</IconText>
+          <IconText>{amount[data.id] || 0}</IconText>
         </IconBox>
         <ButtonText onPress={() => handleAddToCart(data.id)}>
           ADICIONAR
@@ -33,3 +33,5 @@ export default function ProductItem({ data, handleAddToCart }) {
     </Container>
   );
 }
+
+export default connect()(ProductItem)
