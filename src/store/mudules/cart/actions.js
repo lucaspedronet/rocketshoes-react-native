@@ -12,12 +12,12 @@ export function addToCartRequest(id) {
   }
 }
 
-// export function removeToCartRequest(id) {
-//   return {
-//     type: '@cart/REMOVE_RESQUEST',
-//     id
-//   }
-// }
+export function removeToCartRequest(id) {
+  return {
+    type: '@cart/REMOVE_RESQUEST',
+    id
+  }
+}
 
 export function removeToCartSuccess(id) {
   return {

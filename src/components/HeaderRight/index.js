@@ -1,15 +1,15 @@
 import * as React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native';
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import PropTypes from 'prop-types'
 
-
 import { ButtonHeaderRight, Circle, ButtonText } from './styles';
 
-function HeaderRight({ cartSize }) {
+function HeaderRight() {
   const navigation = useNavigation()
+  const cartSize = useSelector(state => state.cart.length)
   return (
     <ButtonHeaderRight onPress={() => navigation.navigate("Cart")}>
       <Circle>
@@ -25,14 +25,10 @@ function HeaderRight({ cartSize }) {
 }
 
 HeaderRight.propTypes = {
-  cartSize: PropTypes.number.isRequired,
+  cartSize: PropTypes.number,
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }),
 }
 
-const mapStateToProps = state => ({
-  cartSize: state.cart.length
-});
-
-export default connect(mapStateToProps)(HeaderRight)
+export default HeaderRight

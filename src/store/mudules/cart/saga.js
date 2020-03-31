@@ -66,7 +66,19 @@ function* updateAmount({ id, amount }) {
 
 }
 
+function* removeIsItem({ id }) {
+  const productsSize = yield select(state => state.cart.length)
+
+  yield put(removeToCartSuccess(id))
+
+  if(productsSize === 1) {
+    RootNavigation.navigate('Home')
+  }
+}
+
+
 export default all([
   takeLatest('@cart/ADD_REQUEST', addToCart),
+  takeLatest('@cart/REMOVE_RESQUEST', removeIsItem),
   takeLatest('@cart/UPDATE_AMOUNT_RESQUEST', updateAmount),
 ])
